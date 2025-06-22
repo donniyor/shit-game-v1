@@ -13,8 +13,7 @@ public static class Helpers
     {
         float newValue = (value - originalMin) / (originalMax - originalMin) * (newMax - newMin) + newMin;
 
-        if (clamp)
-        {
+        if (clamp) {
             newValue = Mathf.Clamp(newValue, newMin, newMax);
         }
 

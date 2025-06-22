@@ -6,7 +6,6 @@ public class PlayerMovement : MonoBehaviour
     public AirState airState;
     public IdleState idleState;
     public RunState runState;
-    public KneelState kneelState;
 
     private State state;
 
@@ -28,7 +27,6 @@ public class PlayerMovement : MonoBehaviour
         idleState.Setup(body, animator, this);
         runState.Setup(body, animator, this);
         airState.Setup(body, animator, this);
-        kneelState.Setup(body, animator, this);
 
         state = idleState;
     }
@@ -49,11 +47,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (grounded)
         {
-            if (yInput < 0)
-            {
-                state = kneelState;
-            }
-            else if (xInput == 0)
+            if (xInput == 0)
             {
                 state = idleState;
             }
@@ -66,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
         {
             state = airState;
         }
-
+        
         if (oldState != state || oldState.isComplete)
         {
             oldState.Exit();
@@ -91,6 +85,7 @@ public class PlayerMovement : MonoBehaviour
     private void CheckGrounded()
     {
         grounded = Physics2D.OverlapAreaAll(groundCheck.bounds.min, groundCheck.bounds.max, groundMask).Length > 0;
+        Debug.Log(grounded);
     }
 
     private void HandleXMovement()
